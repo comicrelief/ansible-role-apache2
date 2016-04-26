@@ -15,3 +15,7 @@
     - php_drush_version: 8
     - php_conf: true
     - apache_groups: "www-data,vagrant"
+    - htpasswd:
+        - name: test.passwd
+          users:
+            - { name: apache, password: d0ntl00k }
