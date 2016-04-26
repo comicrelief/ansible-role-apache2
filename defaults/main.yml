@@ -36,7 +36,7 @@ apache_document_root: true
 apache_drush: true
 apache_drush_url: https://github.com/drush-ops/drush.git
 apache_user: www-data
-apache_groups: "www-data,vagrant"
+apache_groups: "www-data"
 apache_init: "mount /srv/files"
 apache_uid: 33
 packages:
