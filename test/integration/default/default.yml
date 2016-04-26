@@ -14,3 +14,4 @@
     - php_drush_rr: true
     - php_drush_version: 8
     - php_conf: true
+    - apache_groups: "www-data,vagrant"
