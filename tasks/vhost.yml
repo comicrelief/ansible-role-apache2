@@ -3,7 +3,7 @@
 - name: Dissite apache2 defaults
   command: a2dissite {{ item }}
   with_items: "{{ dissite_apache }}"
-  when: dissite_apache is defined
+  when: apache_dissite_sites != false
 
 - name: Add apache vhosts configurations
   template: src=../templates/vhost.conf.j2 dest=/etc/apache2/sites-available/{{ item.server_name }}.conf owner=root group=root mode=644

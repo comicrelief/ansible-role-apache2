@@ -30,6 +30,7 @@ apache_vhost:
     filesmatch: true
     elb: false
 apache_change_user: true
+apache_dissite_sites: false
 apache_dir_owner: www-data
 apache_dir_group: www-data
 apache_dir_mode: 2775
