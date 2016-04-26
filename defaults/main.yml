@@ -31,6 +31,8 @@ apache_vhost:
     elb: false
 apache_change_user: true
 apache_dissite_sites: false
+dissite_apache:
+  - 000-default
 apache_dir_owner: www-data
 apache_dir_group: www-data
 apache_dir_mode: 2775
