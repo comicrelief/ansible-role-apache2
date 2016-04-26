@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+site "https://galaxy.ansible.com/api/v1"
+
+role "ansible-htpasswd", github: "weareinteractive/ansible-htpasswd.git"
+role "ansible-role-php", github: "davidedimauro88/ansible-role-php.git"

@@ -1,0 +1,18 @@
+---
+# This task will install apache and php5 packages
+- name: Install web packages
+  apt: name={{ item }} update_cache=yes state=present
+  with_items: "{{ packages }}"
+  when: packages != false
+
+- name: Add glusterfs mount to apache init
+  lineinfile:
+    dest: /etc/init.d/apache2
+    line: "{{ apache_init }}"
+  when: apache_init is defined
+
+- name: Change www-data group
+  user:
+    name: "{{ apache_user }}"
+    groups: "{{ apache_groups }}"
+    uid: "{{ apache_uid }}"

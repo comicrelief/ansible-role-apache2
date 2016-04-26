@@ -1,0 +1,54 @@
+---
+http_port: 80
+modules:
+  - rewrite
+  - remoteip
+  - headers
+  - expires
+  - deflate
+  - proxy
+  - proxy_fcgi
+
+apache_vhost:
+  - server_name: test
+    document_root: /var/www/test
+    folder: public
+    auth:
+      htaccess:
+        name: test.passwd
+      ip:
+        forwarded:
+          - name: CRAccess
+            ip: 62.6.159.62
+          - name: Test
+            ip: 127.0.0.1
+        direct: '127.0.0.1 127.0.1.1'
+    newrelic: true
+    elb: true
+    filesmatch: false
+  - server_name: test-origin
+    document_root: /var/www/test
+    folder: public
+    filesmatch: true
+    elb: false
+apache_dir_owner: www-data
+apache_dir_group: www-data
+apache_dir_mode: 2775
+apache_document_root: true
+apache_drush: true
+apache_drush_url: https://github.com/drush-ops/drush.git
+apache_user: www-data
+apache_groups: "www-data,vagrant"
+apache_init: "mount /srv/files"
+apache_uid: 33
+packages:
+  - apache2
+  - curl
+  - php5
+  - php5-fpm
+  - mysql-client
+
+htpasswd:
+  - name: test.passwd
+    users:
+      - { name: apache, password: d0ntl00k }

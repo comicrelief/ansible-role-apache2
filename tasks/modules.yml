@@ -1,0 +1,6 @@
+---
+
+- name: Enable apache2 modules
+  apache2_module: name={{ item }} state=present
+  with_items: "{{ modules }}"
+  when: modules != false

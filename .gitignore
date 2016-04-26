@@ -1,0 +1,5 @@
+.kitchen
+tmp
+.librarian
+Ansiblefile.lock
+*.swp

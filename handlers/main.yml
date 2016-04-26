@@ -1,0 +1,9 @@
+---
+- name: reload apache
+  service: name=apache2 state=reloaded
+
+- name: stop php5-fpm
+  service: name=php5-fpm state=stopped
+
+- name: start php5-fpm
+  service: name=php5-fpm state=started
