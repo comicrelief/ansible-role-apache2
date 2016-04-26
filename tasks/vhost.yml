@@ -9,7 +9,6 @@
   template: src=../templates/vhost.conf.j2 dest=/etc/apache2/sites-available/{{ item.server_name }}.conf owner=root group=root mode=644
   notify: reload apache
   with_items: "{{ apache_vhost }}"
-  when: apache_vhost != false
 
 - name: Ensure document root exists
   file:
@@ -19,7 +18,6 @@
     group: "{{ apache_dir_group }}"
     mode: "{{ apache_dir_mode }}"
   with_items: "{{ apache_vhost }}"
-  when: apache_document_root != false
 
 - name: Reload Apache2
   service:
