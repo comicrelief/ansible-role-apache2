@@ -20,6 +20,6 @@ galaxy_info:
     - squeeze
     - wheezy
   dependencies:
-    - { role: "ansible-htpasswd" }
+
   categories:
   - Webserver
