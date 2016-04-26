@@ -44,8 +44,6 @@ apache_uid: 33
 packages:
   - apache2
   - curl
-  - php5
-  - php5-fpm
   - mysql-client
 
 htpasswd:
