@@ -44,7 +44,6 @@ apache_uid: 33
 packages:
   - apache2
   - curl
-  - mysql-client
 
 htpasswd:
   - name: test.passwd
