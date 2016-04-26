@@ -3,7 +3,7 @@
 
 # Ansible-Role-Apache
 
-An Ansible Role that installs Apache 2.x and PHP 5 on RHEL/CentOS and Debian/Ubuntu.
+An Ansible Role that installs Apache 2.x on Debian/Ubuntu systems.
 
 ## Requirements
 none
@@ -13,19 +13,9 @@ Available variables are listed below, along with default values (see `defaults/m
 
 **packages:**       - List of packages to install, including php5 package and modules. Default packages listed below:
 
-    - curl
     - apache2
-    - php5
-    - php5-fpm
-    - php5-mysql
-    - php5-curl
-    - php5-cli
-    - php5-gd
-    - imagemagick
-    - php5-memcache
-    - php5-dev
-    - php5-imagick
-    - php-pear
+    - curl
+    - mysql-client
 **http_port: 80**   - The port on which apache should be listening. (Required)
 
 **dissite_apache:** - Dissite the default Apache's configuration. It won't if set as false. Default are:
