@@ -44,6 +44,7 @@ apache_groups: "www-data"
 apache_uid: 33
 packages:
   - apache2
+  - mysql-client
   - curl
 
 htpasswd:
