@@ -1,4 +1,4 @@
-<VirtualHost *:{{ http_port }}>
+<VirtualHost *:{{ apache_http_port }}>
 
   ServerName {{ item.server_name }}
 {% if item.aliases is defined %}
