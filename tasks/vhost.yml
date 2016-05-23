@@ -7,9 +7,14 @@
   notify: reload apache
 
 - name: Add apache vhosts configurations
-  template: src=../templates/vhost.conf.j2 dest=/etc/apache2/sites-available/{{ item.server_name }}.conf owner=root group=root mode=644
-  notify: reload apache
+  template:
+    src: ../templates/vhost.conf.j2
+    dest: "/etc/apache2/sites-available/{{ item.server_name }}.conf"
+    owner: root
+    group: root
+    mode: 644
   with_items: "{{ apache_vhost }}"
+  notify: reload apache
 
 - name: Ensure document root exists
   file:
