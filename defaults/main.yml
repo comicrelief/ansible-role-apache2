@@ -34,9 +34,13 @@ apache_vhost:
     folder: public
     filesmatch: true
     elb: false
+
+#If true, will add apache_user and apache_group
 apache_change_user: true
+
 apache_dissite:
   - 000-default
+
 apache_dir_mode: 2775
 apache_document_root: true
 apache_drush: true
