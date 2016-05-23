@@ -1,7 +1,10 @@
 ---
 # This task will install apache packages
 - name: Install web packages
-  apt: name={{ item }} update_cache=yes state=present
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    state: present
   with_items: "{{ packages }}"
 
 - name: Change www-data group
