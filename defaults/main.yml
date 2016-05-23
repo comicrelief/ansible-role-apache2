@@ -1,6 +1,6 @@
 ---
 apache_http_port: 80
-modules:
+apache_modules:
   - rewrite
   - remoteip
   - headers
