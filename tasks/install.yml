@@ -5,7 +5,7 @@
     name: "{{ item }}"
     update_cache: yes
     state: present
-  with_items: "{{ packages }}"
+  with_items: "{{ apache_packages }}"
 
 - name: Change www-data group
   user:
