@@ -1,5 +1,6 @@
 ---
 - include: install.yml
+- include: ports.yml
 - include: vhost.yml
 - include: modules.yml
 - include: site.yml
