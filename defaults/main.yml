@@ -32,8 +32,7 @@ apache_vhost:
     filesmatch: true
     elb: false
 apache_change_user: true
-apache_dissite_sites: false
-dissite_apache:
+apache_dissite:
   - 000-default
 apache_dir_mode: 2775
 apache_document_root: true
