@@ -41,7 +41,6 @@ apache_change_user: true
 apache_dissite:
   - 000-default
 
-apache_dir_mode: 2775
 apache_document_root: true
 
 #Vars for htpasswd role

@@ -14,6 +14,7 @@ apache_uid: 33
 #Owner and group of document root
 apache_dir_owner: www-data
 apache_dir_group: www-data
+apache_dir_mode: 2775
 
 apache_root: /etc/apache2
 
