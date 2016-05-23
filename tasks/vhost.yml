@@ -25,9 +25,4 @@
     mode: "{{ apache_dir_mode }}"
   with_items: "{{ apache_vhost }}"
   when: apache_document_root != false
-
-- name: Reload Apache2
-  service:
-    name: apache2
-    state: reloaded
-    enabled: yes
+  notify: reload apache
