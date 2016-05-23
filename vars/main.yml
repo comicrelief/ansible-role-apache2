@@ -13,6 +13,6 @@ apache_ports_config:
   - regexp: "^Listen "
     line: "Listen {{ apache_http_port }}"
     
- apache_vhost_owner: root
- apache_vhost_group: root
- apache_vhost_mode: 644
+apache_vhost_owner: root
+apache_vhost_group: root
+apache_vhost_mode: 644
