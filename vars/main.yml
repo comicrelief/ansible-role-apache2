@@ -7,3 +7,5 @@ apache_packages:
   
 apache_dir_owner: www-data
 apache_dir_group: www-data
+
+apache_root: /etc/apache2
