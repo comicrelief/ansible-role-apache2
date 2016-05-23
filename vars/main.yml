@@ -1,22 +1,28 @@
 ---
+#Packages installed by linux using apt-get install
 apache_packages:
   - apache2
   - apache2-utils
   - mysql-client
   - curl
   
+#Default user used by Apache
 apache_user: www-data
 apache_groups: "www-data"
 apache_uid: 33
 
+#Owner and group of document root
 apache_dir_owner: www-data
 apache_dir_group: www-data
 
 apache_root: /etc/apache2
+
+#Lines to substitute in ports.conf Apache file
 apache_ports_config:
   - regexp: "^Listen "
     line: "Listen {{ apache_http_port }}"
     
+#Vhost(s)'s owner, group and mode
 apache_vhost_owner: root
 apache_vhost_group: root
 apache_vhost_mode: 644
