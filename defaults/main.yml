@@ -8,6 +8,8 @@ apache_modules:
   - deflate
   - proxy
   - proxy_fcgi
+  
+apache_disable_modules: []
 
 apache_vhost:
   - server_name: test
