@@ -43,8 +43,6 @@ apache_dissite:
 
 apache_dir_mode: 2775
 apache_document_root: true
-apache_drush: true
-apache_drush_url: https://github.com/drush-ops/drush.git
 
 #Vars for htpasswd role
 htpasswd:
