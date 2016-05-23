@@ -1,0 +1,6 @@
+---
+__apache_packages:
+  - apache2
+  - apache2-utils
+  - mysql-client
+  - curl

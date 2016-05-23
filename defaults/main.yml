@@ -42,11 +42,6 @@ apache_drush_url: https://github.com/drush-ops/drush.git
 apache_user: www-data
 apache_groups: "www-data"
 apache_uid: 33
-apache_packages:
-  - apache2
-  - apache2-utils
-  - mysql-client
-  - curl
 
 htpasswd:
   - name: test.passwd
