@@ -1,0 +1,9 @@
+---
+- name: Configure Apache
+  lineinfile:
+    dest: "{{ apache_root }}/ports.conf"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items: "{{ apache_ports_config }}"
+  notify: restart apache
