@@ -5,6 +5,9 @@ apache_packages:
   - mysql-client
   - curl
   
+apache_user: www-data
+apache_groups: "www-data"
+  
 apache_dir_owner: www-data
 apache_dir_group: www-data
 
