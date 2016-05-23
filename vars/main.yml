@@ -4,3 +4,6 @@ __apache_packages:
   - apache2-utils
   - mysql-client
   - curl
+  
+apache_dir_owner: www-data
+apache_dir_group: www-data
