@@ -1,5 +1,6 @@
 ---
 apache_http_port: 80
+
 apache_modules:
   - rewrite
   - remoteip
@@ -9,8 +10,10 @@ apache_modules:
   - proxy
   - proxy_fcgi
   
+#Apache Modules that need to be disabled - List
 apache_disable_modules: []
 
+#Apache vhost informations
 apache_vhost:
   - server_name: test
     document_root: /var/www/test
