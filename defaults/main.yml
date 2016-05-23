@@ -39,6 +39,7 @@ apache_document_root: true
 apache_drush: true
 apache_drush_url: https://github.com/drush-ops/drush.git
 
+#Vars for htpasswd role
 htpasswd:
   - name: test.passwd
     users:
