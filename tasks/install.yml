@@ -1,5 +1,5 @@
 ---
-# This task will install apache and php5 packages
+# This task will install apache packages
 - name: Install web packages
   apt: name={{ item }} update_cache=yes state=present
   with_items: "{{ packages }}"
