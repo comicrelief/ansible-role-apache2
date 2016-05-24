@@ -5,11 +5,6 @@ apache_packages:
   - apache2-utils
   - mysql-client
   - curl
-  
-#Default user used by Apache
-apache_user: www-data
-apache_groups: "www-data"
-apache_uid: 33
 
 #Owner and group of document root
 apache_dir_owner: www-data
