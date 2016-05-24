@@ -1,7 +1,7 @@
 ---
 
 - name: Dissite apache2 defaults
-  command: a2dissite {{ item }}
+  command: "a2dissite {{ item }}"
   with_items: "{{ apache_dissite }}"
   when: apache_dissite is defined
   notify: reload apache
