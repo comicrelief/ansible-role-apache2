@@ -21,6 +21,7 @@ apache_disable_modules: []
 #Apache vhost informations
 apache_template_name: vhost.conf.j2
 apache_template_path: ../templates
+
 apache_vhost:
   - server_name: test
     document_root: /var/www/test
