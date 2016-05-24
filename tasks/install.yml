@@ -7,7 +7,7 @@
     state: present
   with_items: "{{ apache_packages }}"
 
-- name: Change www-data group
+- name: Add www-data to different groups
   user:
     name: "{{ apache_user }}"
     groups: "{{ apache_groups }}"
