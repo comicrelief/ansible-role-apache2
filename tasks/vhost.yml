@@ -8,7 +8,7 @@
 
 - name: Add apache vhosts configurations
   template:
-    src: ../templates/vhost.conf.j2
+    src: "{{ apache_template_path }}/{{ apache_template_name }}"
     dest: "/etc/apache2/sites-available/{{ item.server_name }}.conf"
     owner: "{{ apache_vhost_owner }}"
     group: "{{ apache_vhost_group }}"
