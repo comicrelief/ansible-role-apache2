@@ -28,7 +28,7 @@
   notify: reload apache
   
 - name: Enable apache site
-  command: a2ensite "{{ item.server_name }}"
+  command: "a2ensite {{ item.server_name }}"
   with_items: "{{ apache_vhost }}"
   notify: reload apache
   when: apache_vhost is defined
