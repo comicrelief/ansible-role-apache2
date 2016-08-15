@@ -1,6 +1,6 @@
 # Ansible-Role-Apache
 
-[![Build Status](https://travis-ci.org/davidedimauro88/ansible-role-apache.svg?branch=master)](https://travis-ci.org/davidedimauro88/ansible-role-apache)
+[![Build Status](https://travis-ci.org/comicrelief/ansible-role-apache2.svg?branch=master)](https://travis-ci.org/davidedimauro88/ansible-role-apache)
 
 An Ansible Role that installs Apache 2.x on Debian/Ubuntu systems.
 
