@@ -5,6 +5,7 @@
   ServerAlias {% for alias in item.aliases %}{{ alias }} {% endfor %}
 {% endif %}
 
+  UseCanonicalName on
   DocumentRoot {{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}
 
   <Directory {{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}>
