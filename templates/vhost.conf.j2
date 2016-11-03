@@ -86,6 +86,7 @@
 {% endif %}
   </IfModule>
 
+{% if item.fcgi == true %}
   <IfModule proxy_fcgi_module>
     <Proxy *>
       AddDefaultCharset off
@@ -93,5 +94,6 @@
     </Proxy>
     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000{{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}/$1
   </IfModule>
+{% endif %}
 
 </VirtualHost>

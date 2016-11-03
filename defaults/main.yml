@@ -37,11 +37,13 @@ apache_vhost:
     newrelic: true
     elb: true
     filesmatch: false
+    fcgi: true
   - server_name: test-origin
     document_root: /var/www/test
     folder: public
     filesmatch: true
     elb: false
+    fcgi: false
 
 #If true, will add apache_user and apache_group
 apache_change_user: true
