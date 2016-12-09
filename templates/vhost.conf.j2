@@ -63,7 +63,7 @@
   LogLevel info
   ErrorLog /var/log/apache2/{{ item.server_name }}-error.log
 {% if item.elb == true %}
-  LogFormat "\"%a\" %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"" combined-elb
+  LogFormat "\"%a\" %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" %D" combined-elb
   CustomLog /var/log/apache2/{{ item.server_name }}-access.log combined-elb
 {% else %}
   CustomLog /var/log/apache2/{{ item.server_name }}-access.log combined
