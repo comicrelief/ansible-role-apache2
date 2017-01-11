@@ -11,7 +11,9 @@
   <Directory {{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}>
 {% if item.auth is defined %}
     Options FollowSymLinks
+{% if item.fcgi == true %}
     AllowOverride All
+{% endif %}
 {% if item.auth.htaccess is defined %}
     AuthName "Restricted"
     AuthType Basic
