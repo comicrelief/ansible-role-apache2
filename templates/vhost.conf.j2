@@ -82,6 +82,7 @@
   <IfModule rewrite_module>
     RewriteEngine On
 {% if rewrite is defined %}
+Rewrite
 {% for item in rewrite %}
     "RewriteRule {{ item.path }}{{ item.rule }}
 {% endfor %}
