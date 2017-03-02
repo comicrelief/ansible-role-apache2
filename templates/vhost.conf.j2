@@ -83,7 +83,7 @@
     RewriteEngine On
 {% if item.rewrite is defined %}
 {% for rule in item.rewrite %}
-    RewriteRule {{ rule.path }}{{ rule.rule }}
+    RewriteRule {{ rule.path }} {{ rule.rule }}
 {% endfor %}
 {% endif %}
   </IfModule>
