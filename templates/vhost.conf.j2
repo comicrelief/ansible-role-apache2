@@ -8,7 +8,7 @@
   UseCanonicalName on
   DocumentRoot {{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}
 
-  <Directory {{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}>
+  <Directory /{% if item.folder is defined %}{{ item.folder }}{% endif %}>
 {% if item.auth is defined %}
     Options +FollowSymLinks -Indexes
 {% if item.fcgi == true %}
@@ -32,6 +32,7 @@
     Deny from all
     Satisfy Any
 {% else %}
+    DirectoryIndex index.html index.htm
     Options +FollowSymLinks -Indexes
     AllowOverride None
     Require all granted
@@ -97,9 +98,9 @@
     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000{{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}/$1
   </IfModule>
 {% else %}
-  # Don't cache 404s for real files that don't (yet) exist
+  # Don't cache 404s for real files that don't (yet) exist - the 'always' keyword is needed to match non-success responses
   <IfModule headers_module>
-    Header append Cache-Control s-maxage=0 "expr=%{REQUEST_STATUS} == 404"
+    Header always set Cache-Control no-cache "expr=%{REQUEST_STATUS} == 404"
   </IfModule>
 {% endif %}
 
