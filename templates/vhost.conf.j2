@@ -10,7 +10,7 @@
 
   <Directory {{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}>
 {% if item.auth is defined %}
-    Options FollowSymLinks -Indexes
+    Options +FollowSymLinks -Indexes
 {% if item.fcgi == true %}
     AllowOverride All
 {% endif %}
@@ -32,7 +32,7 @@
     Deny from all
     Satisfy Any
 {% else %}
-    Options All -Indexes
+    Options +FollowSymLinks -Indexes
     AllowOverride None
     Require all granted
 {% endif %}
