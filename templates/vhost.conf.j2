@@ -4,14 +4,13 @@
 {% if item.aliases is defined %}
   ServerAlias {% for alias in item.aliases %}{{ alias }} {% endfor %}
 {% endif %}
-
   UseCanonicalName on
   DocumentRoot {{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}
+
 
   <Directory /{% if item.folder is defined %}{{ item.folder }}{% endif %}>
     Options +FollowSymLinks -Indexes
     DirectoryIndex index.html index.htm
-
 {% if item.htaccess is defined and item.htaccess == false %}
     AllowOverride None
 {%   else %}
@@ -101,6 +100,21 @@
     </Proxy>
     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000{{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}/$1
   </IfModule>
+{% elif item.origin is defined and item.origin == true}
+  # Bootstrap Drupal ONLY when CloudFront calls out for files that have not yet been generated
+  <If "! -f %{REQUEST_FILENAME}" && "%{HTTP_USER_AGENT} =~ /CloudFront/">
+    <IfModule proxy_fcgi_module>
+      <Proxy *>
+        AddDefaultCharset off
+        Require all granted
+      </Proxy>
+      ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000{{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}/$1
+    </IfModule>
+    # CloudFront should cache only successful GETs
+    <IfModule headers_module>
+      Header always set Cache-Control no-cache "expr=%{REQUEST_STATUS} != 200"
+    </IfModule>
+  </If>
 {% else %}
   # Don't cache 404s for real files that don't (yet) exist - the 'always' keyword is needed to match non-success responses
   <IfModule headers_module>
