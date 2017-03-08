@@ -6,8 +6,6 @@
 {% endif %}
 
   UseCanonicalName on
-  ServerTokens ProductOnly
-  ServerSignature Off
   DocumentRoot {{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}
 
   <Directory /{% if item.folder is defined %}{{ item.folder }}{% endif %}>
