@@ -11,6 +11,13 @@
   <Directory /{% if item.folder is defined %}{{ item.folder }}{% endif %}>
     Options +FollowSymLinks -Indexes
     DirectoryIndex index.html index.htm
+
+{% if item.htaccess == false %}
+    AllowOverride None
+  {% else %}
+    AllowOverride All
+{% endif %}
+
 {% if item.auth is defined %}
   {% if item.auth.htaccess is defined %}
     AuthName "Restricted"
@@ -87,7 +94,6 @@
   </IfModule>
 
 {% if item.fcgi == true %}
-  AllowOverride All
   <IfModule proxy_fcgi_module>
     <Proxy *>
       AddDefaultCharset off
@@ -96,7 +102,6 @@
     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000{{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}/$1
   </IfModule>
 {% else %}
-  AllowOverride None
   # Don't cache 404s for real files that don't (yet) exist - the 'always' keyword is needed to match non-success responses
   <IfModule headers_module>
     Header always set Cache-Control no-cache "expr=%{REQUEST_STATUS} == 404"
