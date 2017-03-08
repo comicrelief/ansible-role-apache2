@@ -101,14 +101,24 @@
     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000{{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}/$1
   </IfModule>
 {% elif item.origin is defined and item.origin == true %}
-# Bootstrap Drupal ONLY when CloudFront calls out for files that have not yet been generated
-  <If "! -f %{REQUEST_FILENAME}" >
-#    <If "%{HTTP_USER_AGENT} =~ /CloudFront/">
-      RewriteRule ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/srv/webroot/web/$1 [P,L]
-#    </If>
-    # We should cache only successful GETs
-    Header always set Cache-Control no-cache "expr=%{REQUEST_STATUS} != 200"
-  </If>
+
+# Serve files that already exist to anyone
+RewriteCond /srv/webroot/%{REQUEST_URI} "-f"
+RewriteRule "\.(png|jpg|jpeg|gif|svg|pdf|css|js)" - [L]
+
+# If CloudFront asks for a file that does not yet exist AND supplies an itok query string, bootstrap Drupal to see if it can generate the file
+RewriteCond  "%{HTTP_USER_AGENT}"  "CloudFront"
+RewriteCond /srv/webroot/%{REQUEST_URI} "!-f"
+RewriteCond "%{QUERY_STRING}" "itok"
+RewriteRule "\.(png|jpg|jpeg|gif|svg|pdf|css|js)" fcgi://127.0.0.1:9000/srv/webroot/web/index.php [P,L]
+
+# Otherwise, return 403 FORBIDDEN
+RewriteRule .* - [F,L]
+
+# We should cache only successful requests from CloudFront - anything else might be a transient error
+<If "%{HTTP_USER_AGENT} =~ /CloudFront/">
+  Header always set Cache-Control no-cache "expr=%{REQUEST_STATUS} != '200'"
+</If>
 {% else %}
 # Don't cache 404s for real files that don't (yet) exist - the 'always' keyword is needed to match non-success responses
   <IfModule headers_module>
