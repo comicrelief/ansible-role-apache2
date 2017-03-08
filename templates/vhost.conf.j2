@@ -12,7 +12,7 @@
     Options +FollowSymLinks -Indexes
     DirectoryIndex index.html index.htm
 
-{% if item.htaccess == false %}
+{% if item.htaccess is defined and item.htaccess == false %}
     AllowOverride None
   {% else %}
     AllowOverride All
