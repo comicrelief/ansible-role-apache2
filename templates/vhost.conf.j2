@@ -103,9 +103,9 @@
 {% elif item.origin is defined and item.origin == true %}
 # Bootstrap Drupal ONLY when CloudFront calls out for files that have not yet been generated
   <If "! -f %{REQUEST_FILENAME}" >
-    <If "%{HTTP_USER_AGENT} =~ /CloudFront/">
-      RewriteRule (.*\.php) fcgi://127.0.0.1:9000/srv/webroot/web/$1 [P,L]
-    </If>
+#    <If "%{HTTP_USER_AGENT} =~ /CloudFront/">
+      RewriteRule ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/srv/webroot/web/$1 [P,L]
+#    </If>
     # We should cache only successful GETs
     Header always set Cache-Control no-cache "expr=%{REQUEST_STATUS} != 200"
   </If>
