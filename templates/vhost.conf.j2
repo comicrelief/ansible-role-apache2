@@ -14,26 +14,26 @@
 
 {% if item.htaccess is defined and item.htaccess == false %}
     AllowOverride None
-  {% else %}
+{%   else %}
     AllowOverride All
 {% endif %}
 
 {% if item.auth is defined %}
-  {% if item.auth.htaccess is defined %}
+{%   if item.auth.htaccess is defined %}
     AuthName "Restricted"
     AuthType Basic
     AuthUserFile /etc/htpasswd/{{ item.auth.htaccess.name}}
     Require valid-user
-  {% endif %}
-  {% if item.auth.ip is defined and item.auth.ip.forwarded is defined %}
-    {% for ip in item.auth.ip.forwarded %}
+{%   endif %}
+{%   if item.auth.ip is defined and item.auth.ip.forwarded is defined %}
+{%   for ip in item.auth.ip.forwarded %}
     SetEnvIf X-Forwarded-For "{{ ip.ip }}" {{ ip.name }}
     Require env {{ ip.name }}
-    {% endfor %}
-  {% endif %}
-  {% if item.auth.ip is defined and item.auth.ip.direct is defined %}
+{%   endfor %}
+{%   endif %}
+{%   if item.auth.ip is defined and item.auth.ip.direct is defined %}
     Require ip {{ item.auth.ip.direct }}
-  {% endif %}
+{%   endif %}
     Deny from all
     Satisfy Any
 {% else %}
@@ -45,13 +45,13 @@
   <LocationMatch ^/(\?q=)?user(/?.*)$ >
     AuthName "Restricted"
     AuthType Basic
-  {% if item.login_auth is defined %}
+{%   if item.login_auth is defined %}
     AuthUserFile /etc/htpasswd/{{ item.auth.htaccess.name }}
-  {% else %}
-    {% if item.auth is defined %}
+{%   else %}
+{%     if item.auth is defined %}
     AuthUserFile /etc/htpasswd/{{ item.auth.htaccess.name }}
-    {% endif %}
-  {% endif %}
+{%     endif %}
+{%   endif %}
     Require valid-user
   </LocationMatch>
 {% endif %}
@@ -87,9 +87,9 @@
   <IfModule rewrite_module>
     RewriteEngine On
 {% if item.rewrite is defined %}
-  {% for rule in item.rewrite %}
+{%   for rule in item.rewrite %}
     RewriteRule {{ rule.path }} {{ rule.rule }}
-  {% endfor %}
+{%   endfor %}
 {% endif %}
   </IfModule>
 
