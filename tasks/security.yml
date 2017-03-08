@@ -4,7 +4,7 @@
   file:
     path: /var/www/index.html
     mode: 0644
-    state: file
+    state: touch
   
 - name: Show only the "Apache" product name rather than the full version
   replace:
