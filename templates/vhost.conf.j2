@@ -116,15 +116,15 @@ RewriteRule "\.(png|jpg|jpeg|gif|svg|pdf|css|js)" fcgi://127.0.0.1:9000/srv/webr
 RewriteRule .* - [F,L]
 
 # We should cache only successful requests from CloudFront - anything else might be a transient error
+# Also, don't let CloudFront see 'Link:' headers which Drupal can generate alongside some error pages
 <If "%{HTTP_USER_AGENT} =~ /CloudFront/">
   Header always set Cache-Control no-cache "expr=%{REQUEST_STATUS} != '200'"
+  Header always unset Link
 </If>
 {% else %}
 # Don't cache 404s for real files that don't (yet) exist - the 'always' keyword is needed to match non-success responses
-# Also, don't let CloudFront see 'Link:' headers which Drupal can generate alongside some error pages
   <IfModule headers_module>
     Header always set Cache-Control no-cache "expr=%{REQUEST_STATUS} == 404"
-    Header always unset Link
   </IfModule>
 {% endif %}
 
