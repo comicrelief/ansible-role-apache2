@@ -9,32 +9,27 @@
   DocumentRoot {{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}
 
   <Directory /{% if item.folder is defined %}{{ item.folder }}{% endif %}>
-{% if item.auth is defined %}
     Options +FollowSymLinks -Indexes
-{% if item.fcgi == true %}
-    AllowOverride All
-{% endif %}
-{% if item.auth.htaccess is defined %}
+    DirectoryIndex index.html index.htm
+{% if item.auth is defined %}
+  {% if item.auth.htaccess is defined %}
     AuthName "Restricted"
     AuthType Basic
     AuthUserFile /etc/htpasswd/{{ item.auth.htaccess.name}}
     Require valid-user
-{% endif %}
-{% if item.auth.ip is defined and item.auth.ip.forwarded is defined %}
-{% for ip in item.auth.ip.forwarded %}
+  {% endif %}
+  {% if item.auth.ip is defined and item.auth.ip.forwarded is defined %}
+    {% for ip in item.auth.ip.forwarded %}
     SetEnvIf X-Forwarded-For "{{ ip.ip }}" {{ ip.name }}
     Require env {{ ip.name }}
-{% endfor %}
-{% endif %}
-{% if item.auth.ip is defined and item.auth.ip.direct is defined %}
+    {% endfor %}
+  {% endif %}
+  {% if item.auth.ip is defined and item.auth.ip.direct is defined %}
     Require ip {{ item.auth.ip.direct }}
-{% endif %}
+  {% endif %}
     Deny from all
     Satisfy Any
 {% else %}
-    DirectoryIndex index.html index.htm
-    Options +FollowSymLinks -Indexes
-    AllowOverride None
     Require all granted
 {% endif %}
   </Directory>
@@ -43,21 +38,23 @@
   <LocationMatch ^/(\?q=)?user(/?.*)$ >
     AuthName "Restricted"
     AuthType Basic
-{% if item.login_auth is defined %}
+  {% if item.login_auth is defined %}
     AuthUserFile /etc/htpasswd/{{ item.auth.htaccess.name }}
-{% else %}
-{% if item.auth is defined %}
+  {% else %}
+    {% if item.auth is defined %}
     AuthUserFile /etc/htpasswd/{{ item.auth.htaccess.name }}
-{% endif %}
-{% endif %}
+    {% endif %}
+  {% endif %}
     Require valid-user
   </LocationMatch>
 {% endif %}
+
 {% if item.newrelic is defined %}
   <IfModule php5_module>
     php_value newrelic.appname "{{ item.server_name }}"
   </IfModule>
 {% endif %}
+
   <IfModule remoteip_module>
     RemoteIPHeader X-Forwarded-For
     RemoteIPInternalProxy 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 169.254.0.0/16 127.0.0.0/8
@@ -83,13 +80,14 @@
   <IfModule rewrite_module>
     RewriteEngine On
 {% if item.rewrite is defined %}
-{% for rule in item.rewrite %}
+  {% for rule in item.rewrite %}
     RewriteRule {{ rule.path }} {{ rule.rule }}
-{% endfor %}
+  {% endfor %}
 {% endif %}
   </IfModule>
 
 {% if item.fcgi == true %}
+  AllowOverride All
   <IfModule proxy_fcgi_module>
     <Proxy *>
       AddDefaultCharset off
@@ -98,6 +96,7 @@
     ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000{{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}/$1
   </IfModule>
 {% else %}
+  AllowOverride None
   # Don't cache 404s for real files that don't (yet) exist - the 'always' keyword is needed to match non-success responses
   <IfModule headers_module>
     Header always set Cache-Control no-cache "expr=%{REQUEST_STATUS} == 404"
