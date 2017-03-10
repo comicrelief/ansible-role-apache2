@@ -40,17 +40,19 @@
 {% endif %}
   </Directory>
 
-  <LocationMatch ^/(\?q=)?user(/?.*)$ >
 {% if item.auth is defined %}
+  <LocationMatch ^/(\?q=)?user(/?.*)$ >
+
     AuthName "Restricted"
     AuthType Basic
     AuthUserFile /etc/htpasswd/{{ item.auth.htaccess.name }}
     Require valid-user
-{% else %}
+
 # Allows access to /user only through SSL
 #    Require expr %{HTTP:X-Forwarded-Proto} == 'https'
-{% endif %}
+
   </LocationMatch>
+{% endif %}
 
 {% if item.newrelic is defined %}
   <IfModule php5_module>
