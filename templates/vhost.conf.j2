@@ -41,24 +41,17 @@
 {% endif %}
   </Directory>
 
-{% if item.auth is defined or item.login_auth is defined %}
   <LocationMatch ^/(\?q=)?user(/?.*)$ >
+{% if item.auth is defined %}
     AuthName "Restricted"
     AuthType Basic
-{%   if item.login_auth is defined %}
     AuthUserFile /etc/htpasswd/{{ item.auth.htaccess.name }}
-    <RequireAll>
-      Require valid-user
-      Require expr %{HTTP:X-Forwarded-Proto} == 'https' # Allows access to /user only through SSL
-    </RequireAll>
-{%   else %}
-{%     if item.auth is defined %}
-    AuthUserFile /etc/htpasswd/{{ item.auth.htaccess.name }}
-{%     endif %}
-{%   endif %}
     Require valid-user
-  </LocationMatch>
+{% else %}
+# Allows access to /user only through SSL
+    Require expr %{HTTP:X-Forwarded-Proto} == 'https'
 {% endif %}
+  </LocationMatch>
 
 {% if item.newrelic is defined %}
   <IfModule php5_module>
