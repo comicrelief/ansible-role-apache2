@@ -36,6 +36,7 @@
 {%   endif %}
     Deny from all
     Satisfy Any
+{% else %}
     Require all granted
 {% endif %}
   </Directory>
