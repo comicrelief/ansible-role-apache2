@@ -101,7 +101,7 @@
 {% elif item.origin is defined and item.origin == true %}
 
 # Serve files that already exist to anyone
-RewriteCond /srv/webroot/%{REQUEST_URI} "-f"
+RewriteCond {{ item.document_root }}%{REQUEST_URI} "-f"
 RewriteRule "\.(png|jpg|jpeg|gif|svg|pdf|css|js)" - [L]
 
 # If CloudFront asks for a file that does not yet exist AND supplies an itok query string, bootstrap Drupal to see if it can generate the file
