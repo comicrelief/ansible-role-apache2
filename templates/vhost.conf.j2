@@ -4,6 +4,7 @@
 {% if item.aliases is defined %}
   ServerAlias {% for alias in item.aliases %}{{ alias }} {% endfor %}
 {% endif %}
+
   UseCanonicalName on
   DocumentRoot {{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}
 
@@ -46,15 +47,16 @@
     AuthType Basic
 {%   if item.login_auth is defined %}
     AuthUserFile /etc/htpasswd/{{ item.auth.htaccess.name }}
+    <RequireAll>
+      Require valid-user
+      Require expr %{HTTP:X-Forwarded-Proto} == 'https' # Allows access to /user only through SSL
+    </RequireAll>
 {%   else %}
 {%     if item.auth is defined %}
     AuthUserFile /etc/htpasswd/{{ item.auth.htaccess.name }}
 {%     endif %}
 {%   endif %}
-    <RequireAll>
-      Require valid-user
-      Require expr %{HTTP:X-Forwarded-Proto} == 'https' # Allows access to /user only through SSL
-    </RequireAll>
+    Require valid-user
   </LocationMatch>
 {% endif %}
 
