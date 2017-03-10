@@ -51,7 +51,10 @@
     AuthUserFile /etc/htpasswd/{{ item.auth.htaccess.name }}
 {%     endif %}
 {%   endif %}
-    Require valid-user
+    <RequireAll>
+      Require valid-user
+      Require expr %{HTTP:X-Forwarded-Proto} == 'https' # Allows access to /user only through SSL
+    </RequireAll>
   </LocationMatch>
 {% endif %}
 
