@@ -36,8 +36,9 @@
 {%   endif %}
     Deny from all
     Satisfy Any
-{% endif %}
+{% else %}
     Require all granted
+{% endif %}
   </Directory>
 
 {% if item.auth is defined %}
