@@ -124,9 +124,9 @@ RewriteRule .* - [F,L]
 </If>
 {% else %}
 # Don't cache 404s for real files that don't (yet) exist - the 'always' keyword is needed to match non-success responses
-  <IfModule headers_module>
-    Header always set Cache-Control no-cache "expr=%{REQUEST_STATUS} == 404"
-  </IfModule>
+Header always set Cache-Control no-cache "expr=%{REQUEST_STATUS} == 404"
+# Prevent Clickjacking
+Header always append X-Frame-Options SAMEORIGIN
 {% endif %}
 
 </VirtualHost>
