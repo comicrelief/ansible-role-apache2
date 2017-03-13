@@ -21,4 +21,4 @@ apache_ports_config:
 #Vhost(s)'s owner, group and mode
 apache_vhost_owner: root
 apache_vhost_group: root
-apache_vhost_mode: 644
+apache_vhost_mode: 0644
