@@ -9,7 +9,7 @@
   DocumentRoot {{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}
 
 
-  <Directory /{% if item.folder is defined %}{{ item.folder }}{% endif %}>
+  <Directory {{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}>
     Options +FollowSymLinks -Indexes
     DirectoryIndex index.html index.htm
 {% if item.fcgi == true %}
