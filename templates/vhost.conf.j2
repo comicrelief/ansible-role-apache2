@@ -114,7 +114,7 @@ RewriteRule "\.(png|jpg|jpeg|gif|svg|pdf|css|js)" - [L]
 RewriteCond  "%{HTTP_USER_AGENT}"  "CloudFront"
 RewriteCond {{ item.document_root }}/%{REQUEST_URI} "!-f"
 RewriteCond "%{QUERY_STRING}" "itok"
-RewriteRule "\.(png|jpg|jpeg|gif|svg|pdf|css|js)" fcgi://127.0.0.1:9000/srv/webroot/web/index.php [P,L]
+RewriteRule "\.(png|jpg|jpeg|gif|svg|pdf|css|js)" fcgi://127.0.0.1:9000{{ item.document_root }}{% if item.folder is defined %}/{{ item.folder }}{% endif %}/index.php [P,L]
 
 # Otherwise, return 403 FORBIDDEN
 RewriteRule .* - [F,L]
