@@ -145,4 +145,17 @@ Header always unset Server
 Header always unset X-Generator
 Header always unset X-Powered-By
 
+# Force traffic from bots to go to the canonical url (ie. prevent them seeing comicrelief-production.sys.comicrelief.com)
+RewriteCond "%{HTTP_HOST}" !^{{ item.server_name }}$ [NC]
+RewriteCond "%{HTTP_USER_AGENT}" "aolbuild" [NC,OR]                                       # AOL
+RewriteCond "%{HTTP_USER_AGENT}" "baidu" [NC,OR]                                          # Baidu
+RewriteCond "%{HTTP_USER_AGENT}" "(bingbot|bingpreview|msn)" [NC,OR]                      # Bing 
+RewriteCond "%{HTTP_USER_AGENT}" "duckduckgo" [NC,OR]                                     # DDG
+RewriteCond "%{HTTP_USER_AGENT}" "(googlebot|adsbot-google|mediapartners-google)" [NC,OR] # Google
+RewriteCond "%{HTTP_USER_AGENT}" "teoma" [NC,OR]                                          # Teoma (AskJeeves)
+RewriteCond "%{HTTP_USER_AGENT}" "twitterbot" [NC,OR]                                     # Twitter
+RewriteCond "%{HTTP_USER_AGENT}" "(slurp|mmcrawler)" [NC,OR]                              # Yahoo!
+RewriteCond "%{HTTP_USER_AGENT}" "yandex" [NC]                                            # Yandex
+RewriteRule ^(.*)$ https://{{ item.server_name }}$1 [L,R=301]
+
 </VirtualHost>
