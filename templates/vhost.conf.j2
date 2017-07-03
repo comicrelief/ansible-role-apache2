@@ -131,8 +131,18 @@ RewriteRule .* - [F,L]
 {% else %}
 # Don't cache 404s for real files that don't (yet) exist - the 'always' keyword is needed to match non-success responses
 Header always set Cache-Control no-cache "expr=%{REQUEST_STATUS} == 404"
-# Prevent Clickjacking
-Header always append X-Frame-Options SAMEORIGIN
 {% endif %}
+
+# Set some basic security headers if they don't already exist
+Header always setifempty X-Frame-Options SAMEORIGIN
+Header always setifempty Referrer-Policy "strict-origin-when-cross-origin"
+Header always setifempty Content-Security-Policy "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; upgrade-insecure-requests"
+Header always setifempty X-Xss-Protection "1; mode=block"
+Header always setifempty X-Content-Type-Options "nosniff"
+
+# Remove headers that might help potential attackers
+Header always unset Server
+Header always unset X-Generator
+Header always unset X-Powered-By
 
 </VirtualHost>
