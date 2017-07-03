@@ -10,7 +10,13 @@
   replace:
     dest: /etc/apache2/conf-enabled/security.conf
     regexp: "^ServerTokens OS$"
-    replace: "ServerTokens Minimal"
+    replace: "ServerTokens ProductOnly"
+
+- name: Fix up previous servers that had been given "Minimal" ServerTokens
+  replace:
+    dest: /etc/apache2/conf-enabled/security.conf
+    regexp: "^ServerTokens Minimal$"
+    replace: "ServerTokens ProductOnly"
  
 - name: Don't add a signature line to server-generated content
   replace:
