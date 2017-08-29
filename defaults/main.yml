@@ -9,7 +9,7 @@ apache_modules:
   - deflate
   - proxy
   - proxy_fcgi
-  
+
 #Default user used by Apache
 apache_user: www-data
 apache_groups: "www-data"

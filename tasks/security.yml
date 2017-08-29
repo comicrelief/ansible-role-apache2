@@ -22,7 +22,7 @@
     regexp: "^ServerTokens Minimal$"
     replace: "ServerTokens ProductOnly"
   notify: restart apache
- 
+
 - name: Don't add a signature line to server-generated content
   replace:
     dest: /etc/apache2/conf-enabled/security.conf
