@@ -7,21 +7,25 @@
     owner: "{{ apache_vhost_owner }}"
     group: "{{ apache_vhost_group }}"
     mode: "{{ apache_vhost_mode }}"
-  
+  notify: reload apache
+
 - name: Show only the "Apache" product name rather than the full version
   replace:
     dest: /etc/apache2/conf-enabled/security.conf
     regexp: "^ServerTokens OS$"
     replace: "ServerTokens ProductOnly"
+  notify: restart apache
 
 - name: Fix up previous servers that had been given "Minimal" ServerTokens
   replace:
     dest: /etc/apache2/conf-enabled/security.conf
     regexp: "^ServerTokens Minimal$"
     replace: "ServerTokens ProductOnly"
+  notify: restart apache
  
 - name: Don't add a signature line to server-generated content
   replace:
     dest: /etc/apache2/conf-enabled/security.conf
     regexp: "^ServerSignature On$"
     replace: "ServerSignature Off"
+  notify: restart apache
