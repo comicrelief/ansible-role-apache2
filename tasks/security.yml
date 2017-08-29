@@ -1,10 +1,12 @@
 ---
 
-- name: Add a blank file for use as the index of the default vhost
-  file:
-    path: /var/www/index.html
-    mode: 0644
-    state: touch
+- name: Ensure that the default vhost has an empty index.html file
+  template:
+    src: "{{ apache_template_path }}/index.html.j2"
+    dest: "/etc/apache2/sites-available/index.html"
+    owner: "{{ apache_vhost_owner }}"
+    group: "{{ apache_vhost_group }}"
+    mode: "{{ apache_vhost_mode }}"
   
 - name: Show only the "Apache" product name rather than the full version
   replace:
