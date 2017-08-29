@@ -3,13 +3,8 @@ sudo: required
 language: python
 services:
   - docker
-env:
-  - distribution: ubuntu
-    version: 14.04
-    init: /sbin/init
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
 install:
   - pip install molecule==1.25 ansible ansible-lint testinfra docker
 script:
