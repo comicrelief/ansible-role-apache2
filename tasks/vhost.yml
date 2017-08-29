@@ -47,6 +47,6 @@
   with_together:
     - "{{ es.results }}"
     - "{{ apache_vhost }}"
-  when: (item.1.server_name is defined and item.0.stat.islnk is defined ) and not item.0.stat.islnk
+  when: item.1.server_name is defined and (item.0.stat.islnk is not defined or not item.0.stat.islnk)
   no_log: true # produces lots of unreadable gibberish otherwise
   notify: reload apache

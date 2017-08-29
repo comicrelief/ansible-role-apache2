@@ -15,12 +15,14 @@ docker:
     image_version: trusty
 verifier:
   name: testinfra
+  options:
+    verbose: true
 molecule:
   test:
     sequence:
-      - destroy
+#      - destroy
       - syntax
       - create
       - converge
       - idempotence
-#      - verify
+      - verify
