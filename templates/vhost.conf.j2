@@ -50,7 +50,7 @@
     Require valid-user
 
 # Allows access to /user only through SSL
-#    Require expr %{HTTP:X-Forwarded-Proto} == 'https'
+    Require expr %{HTTP:X-Forwarded-Proto} == 'https'
 
   </LocationMatch>
 {% endif %}
