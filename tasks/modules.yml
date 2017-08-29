@@ -6,7 +6,7 @@
     state: present
   with_items: "{{ apache_modules }}"
   notify: restart apache
-  
+
 - name: Disable apache2 modules
   apache2_module:
     name: "{{ item }}"

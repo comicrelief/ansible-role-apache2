@@ -48,6 +48,7 @@ apache_vhost:
 #If true, will add apache_user and apache_group
 apache_change_user: true
 
+# List of vhosts to disable
 apache_dissite:
   - 000-default
 
