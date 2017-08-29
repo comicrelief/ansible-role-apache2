@@ -18,9 +18,9 @@ verifier:
 molecule:
   test:
     sequence:
-#      - destroy
+      - destroy
       - syntax
       - create
       - converge
       - idempotence
-      - verify
+#      - verify
