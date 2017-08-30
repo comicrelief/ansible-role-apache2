@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - role: ansible-role-apache2
+  vars_files:
+    - tests/test.yml

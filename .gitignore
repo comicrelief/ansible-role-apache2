@@ -3,3 +3,14 @@ tmp
 .librarian
 Ansiblefile.lock
 *.swp
+*.retry
+roles/
+.bundle/
+.cache/
+.coverage
+.coverage.*
+.eggs/
+.molecule/
+.tox/
+.vagrant/
+__pycache__/

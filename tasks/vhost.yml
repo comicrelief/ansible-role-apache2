@@ -1,12 +1,21 @@
 ---
 
-- name: Dissite apache2 defaults
-  command: "a2dissite {{ item }}"
+- name: Check if any vhosts need to be disabled
+  stat:
+    path: "/etc/apache2/sites-enabled/{{item}}.conf"
   with_items: "{{ apache_dissite }}"
-  when: apache_dissite is defined
+  register: ds
+
+- name: Disable specified vhosts
+  command: "a2dissite {{ item.1 }}"
+  with_together:
+    - "{{ ds.results }}"
+    - "{{ apache_dissite }}"
+  when: (item.1 is defined and item.0.stat.islnk is defined) and item.0.stat.islnk
+  no_log: true # produces lots of unreadable gibberish otherwise
   notify: reload apache
 
-- name: Add apache vhosts configurations
+- name: Write config for each Apache vhost
   template:
     src: "{{ apache_template_path }}/{{ apache_template_name }}"
     dest: "/etc/apache2/sites-available/{{ item.server_name }}.conf"
@@ -16,7 +25,7 @@
   with_items: "{{ apache_vhost }}"
   notify: reload apache
 
-- name: Ensure document root exists
+- name: Ensure that the document root exists
   file:
     path: "{{ item.document_root }}"
     state: directory
@@ -26,9 +35,18 @@
   with_items: "{{ apache_vhost }}"
   when: apache_document_root != false
   notify: reload apache
-  
-- name: Enable apache site
-  command: "a2ensite {{ item.server_name }}"
+
+- name: Check if any vhosts need to be enabled
+  stat:
+    path: "/etc/apache2/sites-enabled/{{item.server_name}}.conf"
   with_items: "{{ apache_vhost }}"
+  register: es
+
+- name: Enable apache sites
+  command: "a2ensite {{ item.1.server_name }}"
+  with_together:
+    - "{{ es.results }}"
+    - "{{ apache_vhost }}"
+  when: item.1.server_name is defined and (item.0.stat.islnk is not defined or not item.0.stat.islnk)
+  no_log: true # produces lots of unreadable gibberish otherwise
   notify: reload apache
-  when: apache_vhost is defined

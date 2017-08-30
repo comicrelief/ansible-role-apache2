@@ -50,7 +50,7 @@
     Require valid-user
 
 # Allows access to /user only through SSL
-#    Require expr %{HTTP:X-Forwarded-Proto} == 'https'
+    Require expr %{HTTP:X-Forwarded-Proto} == 'https'
 
   </LocationMatch>
 {% endif %}
@@ -85,6 +85,10 @@
 
   <IfModule rewrite_module>
     RewriteEngine On
+{% if item.force_https is defined and item.force_https == true %}
+   RewriteCond %{HTTP:X-Forwarded-Proto} !https
+   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=308]
+{% endif %}
 {% if item.rewrite is defined %}
 {%   for rule in item.rewrite %}
     RewriteRule {{ rule.path }} {{ rule.rule }}
