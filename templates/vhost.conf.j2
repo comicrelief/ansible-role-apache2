@@ -87,6 +87,7 @@
     RewriteEngine On
 {% if item.force_https is defined and item.force_https == true %}
    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+   RewriteCond %{REMOTE_ADDR} !127.0.0.1
    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=308]
 {% endif %}
 {% if item.rewrite is defined %}
