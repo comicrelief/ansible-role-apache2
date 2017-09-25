@@ -154,7 +154,7 @@ Header always unset X-Powered-By
 RewriteCond "%{HTTP_HOST}" !^{{ item.server_name }}$ [NC]
 RewriteCond "%{HTTP_USER_AGENT}" "aolbuild" [NC,OR]                                       # AOL
 RewriteCond "%{HTTP_USER_AGENT}" "baidu" [NC,OR]                                          # Baidu
-RewriteCond "%{HTTP_USER_AGENT}" "(bingbot|bingpreview|msn)" [NC,OR]                      # Bing 
+RewriteCond "%{HTTP_USER_AGENT}" "(bingbot|bingpreview|msn)" [NC,OR]                      # Bing
 RewriteCond "%{HTTP_USER_AGENT}" "duckduckgo" [NC,OR]                                     # DDG
 RewriteCond "%{HTTP_USER_AGENT}" "(googlebot|adsbot-google|mediapartners-google)" [NC,OR] # Google
 RewriteCond "%{HTTP_USER_AGENT}" "teoma" [NC,OR]                                          # Teoma (AskJeeves)
