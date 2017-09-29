@@ -166,11 +166,11 @@ Header Always set Cache-Control "no-store, no-cache, must-revalidate" env=nocach
 
 # Server status
 {% if item.server_status is defined %}
-<Location /cr-srs>
+<Location /server-status>
 SetHandler server-status
 Order allow,deny
 Deny from all
-Allow from sys.comicrelief.com
+Allow from 213.122.190.49
 </Location>
 {% endif %}
 </VirtualHost>
