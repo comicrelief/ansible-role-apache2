@@ -13,7 +13,7 @@
         ThreadLimit              {{item.ThreadLimit | default(64)}}
         ThreadsPerChild          {{item.ThreadsPerChild | default(25)}}
         MaxRequestWorkers        {{item.MaxRequestWorkers | default(150)}}
-        MaxConnectionsPerChild   {{MaxConnectionsPerChild | default(0)}}
+        MaxConnectionsPerChild   {{item.MaxConnectionsPerChild | default(0)}}
 </IfModule>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
