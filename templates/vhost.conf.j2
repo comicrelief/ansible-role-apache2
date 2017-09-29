@@ -165,13 +165,13 @@ RewriteRule ^(.*)$ https://{{ item.server_name }}$1 [L,R=301,E=nocache:1]
 Header Always set Cache-Control "no-store, no-cache, must-revalidate" env=nocache
 
 # Server status
-{% if item.server_status is defined %}
+{%- if item.server_status is defined %}
 <Location /cr-srs>
 SetHandler server-status
 Order allow,deny
 Deny from all
-Allow from {{item.server_name}} {% for alias in item.aliases %}{{ alias }}
-{% endfor %}
+Allow from {{item.server_name}} {%- for alias in item.aliases %}{{ alias }}
+{%- endfor %}
 </Location>
-{% endif %}
+{%- endif %}
 </VirtualHost>
