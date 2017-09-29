@@ -170,7 +170,7 @@ Header Always set Cache-Control "no-store, no-cache, must-revalidate" env=nocach
 SetHandler server-status
 Order allow,deny
 Deny from all
-Allow from {{item.server_name}} {% for alias in item.aliases %}{{ alias }} {% endfor %}
+Allow from {{item.server_name}} {% for alias in item.aliases %}{{ alias }} {% endfor -%}
 </Location>
 {% endif %}
 </VirtualHost>
