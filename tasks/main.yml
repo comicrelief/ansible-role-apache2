@@ -4,3 +4,4 @@
 - include: modules.yml
 - include: vhost.yml
 - include: security.yml
+- include: mpm_event.yml
