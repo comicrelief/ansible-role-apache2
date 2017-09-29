@@ -2,7 +2,7 @@
 - name: mpm event optimized
   template:
     src: mpn_event.conf.j2
-    dest: /etc/apache2/sites-available/mpm_event.conf
+    dest: /etc/apache2/mods-available/mpm_event.conf
   notify:
     - stop apache2
     - start apache2
