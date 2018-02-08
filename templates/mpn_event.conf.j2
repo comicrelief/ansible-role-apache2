@@ -7,12 +7,12 @@
 # MaxRequestWorkers: maximum number of worker threads
 # MaxConnectionsPerChild: maximum number of requests a server process serves
 <IfModule mpm_event_module>
-        StartServers             {{item.StartServers | default(2)}}
-        MinSpareThreads          {{item.StartServers | default(25)}}
-        MaxSpareThreads          {{item.MaxSpareThreads | default(75)}}
         ThreadLimit              {{item.ThreadLimit | default(64)}}
-        ThreadsPerChild          {{item.ThreadsPerChild | default(25)}}
-        MaxRequestWorkers        {{item.MaxRequestWorkers | default(150)}}
+        StartServers             {{item.StartServers | default(2)}}
+        MinSpareThreads          {{item.MinSpareThreads | default(25)}}
+        MaxSpareThreads          {{item.MaxSpareThreads | default(250)}}
+        ThreadsPerChild          {{item.ThreadsPerChild | default(64)}}
+        MaxRequestWorkers        {{item.MaxRequestWorkers | default(300)}}
         MaxConnectionsPerChild   {{item.MaxConnectionsPerChild | default(0)}}
 </IfModule>
 
